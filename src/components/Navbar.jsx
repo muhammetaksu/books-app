@@ -18,7 +18,7 @@ function Navbar() {
             >
                 <div className="container-fluid ms-3">
                     <Link className="navbar-brand text-white" to="/">
-                        Kampüs365 Book Store
+                        Kampüs365 Book App
                     </Link>
                     <button
                         className="navbar-toggler text-white"

@@ -1,19 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FavoriteBooks } from "./context/FavoritesContextProvider";
 import "animate.css";
 import GoToTop from "./GoToTop";
-import ReactPaginate from "react-paginate";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+import Stack from "@mui/material/Stack";
+import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
+import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
+import Typography from "@mui/material/Typography";
+import { LoaderContext } from "./context/LoaderContextProvider";
 
 function Favorites() {
     const { favBooks, removeToFavorites } = useContext(FavoriteBooks);
+    const { loaderIsActive, tailSpinLoading } = useContext(LoaderContext);
 
     ////////// Paginate
-    const [pageNumber, setPageNumber] = useState(0);
-    const booksPerPage = 4;
+    const [pageNumber, setPageNumber] = useState(1);
+    const [booksPerPage, setbooksPerPage] = useState(4);
     const pagesVisited = pageNumber * booksPerPage;
     const displayBooks = favBooks.slice(
-        pagesVisited,
-        pagesVisited + booksPerPage
+        pagesVisited - booksPerPage,
+        pagesVisited
     );
     ////////
     const pageCount = Math.ceil(favBooks.length / booksPerPage);
@@ -21,11 +28,22 @@ function Favorites() {
         setPageNumber(selected);
     };
     ////////
+    const handleChange = (event, value) => {
+        setPageNumber(value);
+        window.scrollTo({ top: 0 });
+    };
 
     return (
         <div id="container" className="container">
             <div className="row ">
-                {displayBooks.length > 0 ? (
+                {loaderIsActive === true ? (
+                    <div
+                        style={{ height: "50vh" }}
+                        className="d-flex justify-content-center my-5"
+                    >
+                        <div className="my-auto">{tailSpinLoading}</div>
+                    </div>
+                ) : displayBooks.length > 0 ? (
                     displayBooks.map((book) => (
                         <div
                             key={book.id}
@@ -114,7 +132,7 @@ function Favorites() {
                                         </div>
                                         <button
                                             onClick={() =>
-                                                removeToFavorites(book.id)
+                                                removeToFavorites(book)
                                             }
                                             className="btn btn-warning mt-3"
                                         >
@@ -133,17 +151,26 @@ function Favorites() {
                     </div>
                 )}
             </div>
-            <ReactPaginate
-                previousLabel={"Previous"}
-                nextLabel={"Next"}
-                pageCount={pageCount}
-                onPageChange={changePage}
-                containerClassName={"paginationBtns"}
-                previousLinkClassName={"previousBtn"}
-                nextLinkClassName={"nextBtn"}
-                disabledClassName={"paginationDisabled"}
-                activeClassName={"paginationActive"}
-            />
+            <Stack spacing={2}>
+                <Pagination
+                    className="paginationBtns"
+                    onChange={handleChange}
+                    count={pageCount}
+                    color="primary"
+                    size="large"
+                    showFirstButton
+                    showLastButton
+                    renderItem={(item) => (
+                        <PaginationItem
+                            components={{
+                                previous: ArrowBackSharpIcon,
+                                next: ArrowForwardSharpIcon,
+                            }}
+                            {...item}
+                        />
+                    )}
+                />
+            </Stack>
             <GoToTop />
         </div>
     );

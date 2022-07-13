@@ -19,7 +19,11 @@ export function GetDataContextProvider({ children }) {
             .get(API_URL)
             .then((res) => setBooks(res.data))
             .catch((err) => console.log(err))
-            .finally(() => setLoaderIsActive(false));
+            .finally(() =>
+                setTimeout(() => {
+                    setLoaderIsActive(false);
+                }, 500)
+            );
     }, []);
 
     const totalBooks = books.length;

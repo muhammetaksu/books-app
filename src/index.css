@@ -307,11 +307,11 @@ nav {
 
 /******* Pagination */
 .paginationBtns {
-    width: 90%;
-    display: flex;
-    justify-content: center;
+    /* width: 60%; */
+    /* display: flex;
+    justify-content: center; */
+    /* list-style: none; */
     margin: auto;
-    list-style: none;
     margin-bottom: 15px;
     padding: 0;
     border: none;

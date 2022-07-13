@@ -1,16 +1,22 @@
 import React, { createContext, useState } from "react";
-import { Audio } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export const LoaderContext = createContext(null);
 
 export const LoaderContextProvider = ({ children }) => {
     const [loaderIsActive, setLoaderIsActive] = useState(false);
 
-    const AudioLoader = (
-        <Audio height="100" width="100" color="grey" ariaLabel="loading" />
+    const tailSpinLoading = (
+        <TailSpin height={150} width={150} ariaLabel="loading-indicator" />
     );
 
-    const values = { AudioLoader, loaderIsActive, setLoaderIsActive };
+    const values = {
+        tailSpinLoading,
+
+        loaderIsActive,
+        setLoaderIsActive,
+    };
 
     return (
         <div>

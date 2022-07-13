@@ -1,29 +1,49 @@
-import React, { useContext, useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { FavoriteBooks } from "./context/FavoritesContextProvider";
 import { GetDataContext } from "./context/GetDataContextProvider";
 import { LoaderContext } from "./context/LoaderContextProvider";
 import GoToTop from "./GoToTop";
+import {
+    Autocomplete,
+    TextField,
+    Pagination,
+    PaginationItem,
+    Stack,
+    Typography,
+    Toolbar,
+} from "@mui/material";
+
+import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
+import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
+import { useEffect } from "react";
+import { Button, message, Space } from "antd";
+import "antd/dist/antd.css";
 
 function BookList() {
     ////////// Context
-    const { books } = useContext(GetDataContext);
+    const { books, setBooks } = useContext(GetDataContext);
     const { favBooks, removeToFavorites, addToFavorites } =
         useContext(FavoriteBooks);
-    const { loaderIsActive } = useContext(LoaderContext);
+    const { loaderIsActive, tailSpinLoading } = useContext(LoaderContext);
 
     ////////// Paginate
-    const [pageNumber, setPageNumber] = useState(0);
-    const booksPerPage = 12;
+    const [pageNumber, setPageNumber] = useState(1);
+    const [booksPerPage, setbooksPerPage] = useState(12);
     const pagesVisited = pageNumber * booksPerPage;
-    const displayBooks = books.slice(pagesVisited, pagesVisited + booksPerPage);
+    const displayBooks = books.slice(pagesVisited - booksPerPage, pagesVisited);
     ////////
     const pageCount = Math.ceil(books.length / booksPerPage);
-    const changePage = ({ selected }) => {
-        setPageNumber(selected);
+    const changePage = (p) => {
+        setPageNumber(p);
     };
     ////////
+    const handleChange = (event, value) => {
+        setPageNumber(value);
+        window.scrollTo({ top: 0 });
+    };
+
+    ///////
 
     const favControl = (id) => {
         const select = favBooks.some((q) => q.id === id);
@@ -34,19 +54,28 @@ function BookList() {
 
     return (
         <>
-            <div id="container" className="mx-5">
-                <h2 className="my-4 fav-heads rounded border-bottom shadow">
-                    Book List
-                </h2>
+            <div id="container" style={{ minHeight: "100vh" }} className="mx-5">
+                <div>
+                    <h2 className="my-4 fav-heads rounded border-bottom shadow">
+                        Book List
+                    </h2>
+                </div>
+                <div className="row">
+                    <div className="col-10"></div>
+                    <div className="col-2 d-flex justify-content-center m-auto">
+                        <Typography className="fw-bold text-center bg-light rounded p-2">
+                            Page: {pageNumber}
+                        </Typography>
+                    </div>
+                </div>
 
                 <div id="bookListRow" className="row">
                     {loaderIsActive === true ? (
-                        <div className="d-flex justify-content-center my-5">
-                            <div className="spinner-border" role="status">
-                                <span className="visually-hidden">
-                                    Loading...
-                                </span>
-                            </div>
+                        <div
+                            style={{ height: "50vh" }}
+                            className="d-flex justify-content-center my-5"
+                        >
+                            <div className="my-auto">{tailSpinLoading}</div>
                         </div>
                     ) : (
                         displayBooks.map((book) => (
@@ -89,8 +118,9 @@ function BookList() {
                                     </h6>
                                     {favControl(book.id) ? (
                                         <button
+                                            id="removeBtn"
                                             onClick={() =>
-                                                removeToFavorites(book.id)
+                                                removeToFavorites(book)
                                             }
                                             className="btn btn-bg-pink m-0 "
                                         >
@@ -98,6 +128,7 @@ function BookList() {
                                         </button>
                                     ) : (
                                         <button
+                                            id="addBtn"
                                             onClick={() => addToFavorites(book)}
                                             className="btn btn-bg-green m-0 "
                                         >
@@ -110,18 +141,32 @@ function BookList() {
                     )}
                 </div>
             </div>
-            <ReactPaginate
-                previousLabel={"Previous"}
-                nextLabel={"Next"}
-                pageCount={pageCount}
-                onPageChange={changePage}
-                containerClassName={"paginationBtns"}
-                previousLinkClassName={"previousBtn"}
-                nextLinkClassName={"nextBtn"}
-                disabledClassName={"paginationDisabled"}
-                activeClassName={"paginationActive"}
+            <Stack spacing={2}>
+                <Pagination
+                    className="paginationBtns"
+                    onChange={handleChange}
+                    count={pageCount}
+                    color="primary"
+                    size="large"
+                    showFirstButton
+                    showLastButton
+                    renderItem={(item) => (
+                        <PaginationItem
+                            components={{
+                                previous: ArrowBackSharpIcon,
+                                next: ArrowForwardSharpIcon,
+                            }}
+                            {...item}
+                        />
+                    )}
+                />
+            </Stack>
+            <GoToTop
+                total={books.length}
+                onChange={(page) => {
+                    setPageNumber(page);
+                }}
             />
-            <GoToTop />
         </>
     );
 }
