@@ -1,0 +1,355 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+}
+
+#root {
+    min-height: 100vh;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+.text-white {
+    color: white !important;
+}
+/***  NAVBAR*/
+nav {
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.5);
+}
+
+/*** FOOTER CSS *****/
+.footer-dark {
+    padding: 40px 0;
+    color: #f0f9ff;
+    background-color: #282d32;
+}
+
+.footer-dark h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.footer-dark ul {
+    padding: 0;
+    list-style: none;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.footer-dark ul a {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+.footer-dark ul a:hover {
+    opacity: 0.8;
+}
+
+.footer-dark .item.text {
+    margin-bottom: 36px;
+}
+
+@media (max-width: 767px) {
+    .footer-dark .item:not(.social) {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-dark .item.text {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 991px) {
+    .footer-dark .item.social {
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+
+.footer-dark .item.text p {
+    opacity: 0.6;
+    margin-bottom: 0;
+}
+
+.footer-dark .item.social {
+    text-align: center;
+}
+
+.footer-dark .item.social > a {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+    margin: 0 8px;
+    color: #fff;
+    opacity: 0.75;
+}
+
+.footer-dark .item.social > a:hover {
+    opacity: 0.9;
+}
+
+.footer-dark .copyright {
+    text-align: center;
+    opacity: 0.3;
+    font-size: 13px;
+    margin-bottom: 0;
+}
+/******** CARD CSS */
+
+.item {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.item-card {
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#card-box {
+    height: auto;
+    width: auto;
+}
+
+#card-title {
+    overflow: hidden;
+    height: 40px;
+    padding: 0 10px;
+    margin: 0;
+}
+
+#img-box {
+    height: auto;
+    width: auto;
+}
+
+.item-card-title {
+    font-size: 15px;
+    transition: 0.3s;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.item-card-title i {
+    font-size: 15px;
+    transition: 0.3s;
+    cursor: pointer;
+    color: #ffa710;
+}
+
+#quote-box {
+    height: 10vh;
+    overflow: auto;
+}
+
+#card-box:hover {
+    transform: scale(1.02);
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 575px) {
+    #card-box {
+        height: auto;
+        width: 70%;
+        margin: auto;
+    }
+}
+
+/** BOOK DETAIL **/
+@media (max-width: 767px) {
+    #bookDetailImg {
+        justify-content: center;
+    }
+}
+
+/****** FAV CARD */
+.fav-heads {
+    background: rgb(240, 240, 240);
+    padding: 0 5px;
+}
+
+#fav-length {
+    font-size: large;
+    font-weight: 500;
+    padding: 0 7px;
+    border-radius: 20px;
+    background-color: springgreen;
+    color: black;
+}
+
+/***** LOADER ******/
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(24px, 0);
+    }
+}
+
+/*** BTN HOVER AND BG ***/
+.btn-bg-pink {
+    background: rgba(255, 0, 0, 0.25);
+    border: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    transition: 0.3s !important;
+}
+.btn-bg-pink:focus {
+    background: rgba(255, 0, 0, 0.25);
+}
+.btn-bg-pink:hover {
+    background: rgba(255, 0, 0, 0.5);
+}
+
+.btn-bg-green {
+    background: rgba(8, 133, 8, 0.3);
+    border: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    transition: 0.3s !important;
+}
+.btn-bg-green:focus {
+    background: rgba(8, 133, 8, 0.3);
+}
+.btn-bg-green:hover {
+    background: rgba(8, 133, 8, 0.6);
+}
+
+/** SCROLL BAR */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(40, 45, 50, 0.6);
+    border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(40, 45, 50);
+}
+
+/******* Pagination */
+.paginationBtns {
+    /* width: 60%; */
+    /* display: flex;
+    justify-content: center; */
+    /* list-style: none; */
+    margin: auto;
+    margin-bottom: 15px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.paginationBtns a {
+    color: black;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: large;
+    padding: 5px 13px;
+    transition: 0.2s;
+}
+
+.paginationBtns li {
+    margin: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.paginationBtns a:hover {
+    background: rgba(21, 168, 112, 0.2);
+    border-radius: 5px;
+}
+
+.previousBtn {
+    text-decoration: none;
+}
+.nextBtn {
+    text-decoration: none;
+}
+.paginationDisabled {
+    color: gray;
+}
+.paginationActive {
+    background: rgba(21, 168, 112, 0.7);
+    color: white;
+    border-radius: 10px;
+}
