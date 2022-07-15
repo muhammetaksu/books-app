@@ -4,6 +4,9 @@ import { FavoriteBooks } from "./context/FavoritesContextProvider";
 
 function Navbar() {
     const { favBooks } = useContext(FavoriteBooks);
+    const goToTop = () => {
+        window.scrollTo(0, 0);
+    };
 
     return (
         <>
@@ -17,7 +20,11 @@ function Navbar() {
                 className="navbar navbar-expand-lg"
             >
                 <div className="container-fluid ms-3">
-                    <Link className="navbar-brand text-white" to="/">
+                    <Link
+                        onClick={() => goToTop()}
+                        className="navbar-brand text-white"
+                        to="/"
+                    >
                         Kampüs365 Book App
                     </Link>
                     <button
@@ -50,6 +57,7 @@ function Navbar() {
                         <div className="navbar-nav me-3">
                             <Link
                                 className="nav-link text-white active "
+                                onClick={() => goToTop()}
                                 aria-current="page"
                                 to="/favorites"
                             >
@@ -67,6 +75,7 @@ function Navbar() {
                         <div className="navbar-nav me-3">
                             <Link
                                 className="nav-link text-white active "
+                                onClick={() => goToTop()}
                                 aria-current="page"
                                 to="/"
                             >
