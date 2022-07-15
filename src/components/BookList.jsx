@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { FavoriteBooks } from "./context/FavoritesContextProvider";
 import { GetDataContext } from "./context/GetDataContextProvider";
 import { LoaderContext } from "./context/LoaderContextProvider";
-import GoToTop from "./GoToTop";
 import {
     Autocomplete,
     TextField,
@@ -16,16 +15,16 @@ import {
 
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
 import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
-import { useEffect } from "react";
-import { Button, message, Space } from "antd";
-import "antd/dist/antd.css";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 function BookList() {
     ////////// Context
     const { books, setBooks } = useContext(GetDataContext);
     const { favBooks, removeToFavorites, addToFavorites } =
         useContext(FavoriteBooks);
-    const { loaderIsActive, tailSpinLoading } = useContext(LoaderContext);
+    const { loaderIsActive, setLoaderIsActive, tailSpinLoading } =
+        useContext(LoaderContext);
 
     ////////// Paginate
     const [pageNumber, setPageNumber] = useState(1);
@@ -39,8 +38,12 @@ function BookList() {
     };
     ////////
     const handleChange = (event, value) => {
-        setPageNumber(value);
+        setLoaderIsActive(true);
         window.scrollTo({ top: 0 });
+        setTimeout(() => {
+            setPageNumber(value);
+            setLoaderIsActive(false);
+        }, 500);
     };
 
     ///////
@@ -52,19 +55,57 @@ function BookList() {
 
     const navigate = useNavigate();
 
+    const goToBottom = () => {
+        window.scrollTo(0, 9999999999999);
+    };
+    const goToTop = () => {
+        window.scrollTo(0, 0);
+    };
+
     return (
         <>
-            <div id="container" style={{ minHeight: "100vh" }} className="mx-5">
+            <div style={{ minHeight: "75vh" }} className="mx-5">
+                <div
+                    id="goTo"
+                    className="position-fixed"
+                    style={{
+                        bottom: "30px",
+                        right: "20px",
+                        zIndex: "1",
+                    }}
+                >
+                    <button
+                        id="goBtn"
+                        onClick={() => goToTop()}
+                        className="d-inline rounded-top border-bottom border-0  "
+                    >
+                        <ArrowDropUpIcon className="fs-2" />
+                    </button>
+                    <br />
+                    <button
+                        id="goBtn"
+                        onClick={() => goToBottom()}
+                        className="d-inline rounded-bottom border-top border-0  "
+                    >
+                        <ArrowDropDownIcon className="fs-2" />
+                    </button>
+                </div>
                 <div>
                     <h2 className="my-4 fav-heads rounded border-bottom shadow">
                         Book List
                     </h2>
                 </div>
                 <div className="row">
-                    <div className="col-10"></div>
+                    <div className="col-10">
+                        <div className="d-flex justify-content-left h-100">
+                            <p className="my-auto">
+                                Click on the picture to see the book details.
+                            </p>
+                        </div>
+                    </div>
                     <div className="col-2 d-flex justify-content-center m-auto">
                         <Typography className="fw-bold text-center bg-light rounded p-2">
-                            Page: {pageNumber}
+                            Page {pageNumber}
                         </Typography>
                     </div>
                 </div>
@@ -98,6 +139,7 @@ function BookList() {
                                         </h6>
                                     </div>
                                     <img
+                                        style={{ cursor: "zoom-in" }}
                                         title="Click here to see the book details."
                                         className="mb-auto"
                                         onClick={() =>
@@ -124,7 +166,7 @@ function BookList() {
                                             }
                                             className="btn btn-bg-pink m-0 "
                                         >
-                                            Favorilerden Kaldır
+                                            Remove from Favorites
                                         </button>
                                     ) : (
                                         <button
@@ -132,7 +174,7 @@ function BookList() {
                                             onClick={() => addToFavorites(book)}
                                             className="btn btn-bg-green m-0 "
                                         >
-                                            Favorilere Ekle
+                                            Add to Favorites
                                         </button>
                                     )}
                                 </div>
@@ -161,12 +203,6 @@ function BookList() {
                     )}
                 />
             </Stack>
-            <GoToTop
-                total={books.length}
-                onChange={(page) => {
-                    setPageNumber(page);
-                }}
-            />
         </>
     );
 }

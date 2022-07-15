@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Button, message, Space } from "antd";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 
 export const FavoriteBooks = createContext(null);
 

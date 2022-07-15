@@ -22,7 +22,7 @@ export function GetDataContextProvider({ children }) {
             .finally(() =>
                 setTimeout(() => {
                     setLoaderIsActive(false);
-                }, 500)
+                }, 300)
             );
     }, []);
 

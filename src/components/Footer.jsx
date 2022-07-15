@@ -2,8 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Footer() {
+    const goToTop = () => {
+        window.scrollTo(0, 0);
+    };
     return (
-        <div className="footer-dark">
+        <div
+            style={{
+                backgroundColor: "#282d32",
+                position: "relative",
+                bottom: "0",
+            }}
+            className="footer-dark"
+        >
             <footer>
                 <div className="container">
                     <div className="row">
@@ -14,7 +24,7 @@ function Footer() {
                                 <br />
                                 <Link to="/favorites">Favorites</Link>
                                 <br />
-                                <a href="#container">Go to Top</a>
+                                <a onClick={() => goToTop()}>Go to Top</a>
                             </ul>
                         </div>
                         <div className="col-sm-6 col-md-3 item">

@@ -13,7 +13,6 @@ export const LoaderContextProvider = ({ children }) => {
 
     const values = {
         tailSpinLoading,
-
         loaderIsActive,
         setLoaderIsActive,
     };
