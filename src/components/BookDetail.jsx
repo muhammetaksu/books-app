@@ -28,8 +28,7 @@ function BookDetail() {
             .get(`${BOOK_DETAIL_URL}${id}`)
             .then((res) => setBookDetail(res.data))
             .catch((err) => console.log(err))
-            .then(() => window.scrollTo(0, 0))
-            .finally(() =>
+            .then(() =>
                 setTimeout(() => {
                     setLoaderIsActive(false);
                 }, 250)
