@@ -62,6 +62,11 @@ function BookList() {
         window.scrollTo(0, 0);
     };
 
+    const goToBookDetail = (id) => {
+        window.scrollTo(0, 0);
+        navigate(`/book/${id}`);
+    };
+
     return (
         <>
             <div style={{ minHeight: "75vh" }} className="mx-5">
@@ -142,9 +147,7 @@ function BookList() {
                                         style={{ cursor: "zoom-in" }}
                                         title="Click here to see the book details."
                                         className="mb-auto"
-                                        onClick={() =>
-                                            navigate(`/book/${book.id}`)
-                                        }
+                                        onClick={() => goToBookDetail(book.id)}
                                         id="img-box"
                                         src={book.image_url}
                                         alt="#"
